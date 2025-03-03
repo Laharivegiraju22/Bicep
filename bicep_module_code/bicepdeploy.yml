@@ -3,54 +3,23 @@ trigger:
 
 name: Deploy Bicep files
 
-parameters:
-- name: azureServiceConnection
-  type: string
-  default: 'bicepserviceconnection'
+# parameters:
+#   azureServiceConnection: 'bicepserviceconnection'
 
 variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'azmonitortest'
   location: 'eastus'
-  templateFile: './modulemain.bicep'
-  csmParametersFile: './moduleparam.bicepparam'
+  bicepParamFile: './moduleparam.bicepparam'
 
 pool:
   vmImage: $(vmImageName)
 
 steps:
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureSubscription: '${{ parameters.azureServiceConnection }}'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: '$(resourceGroupName)'
-    location: '$(location)'
-    templateLocation: 'Linked artifact'
-    csmFile: '$(templateFile)'
-    csmParametersFile: '$(csmParametersFile)'
-    overrideParameters: '-storageAccountType Standard_LRS'
-    deploymentMode: 'Incremental'
-    deploymentName: 'DeployPipelineTemplate'
-
-# trigger:
-# - main
-
-# name: Deploy Bicep files
-
-# # parameters:
-# #   azureServiceConnection: 'bicepserviceconnection'
-
-# variables:
-#   vmImageName: 'ubuntu-latest'
-#   resourceGroupName: 'azmonitortest'
-#   location: 'eastus'
-#   bicepParamFile: './moduleparam.bicepparam'
-
-# pool:
-#   vmImage: $(vmImageName)
-
-# steps:
+- task: ls
+  script: |
+    ls -la
+    pwd
 # - task: AzureCLI@2
 #   inputs:
 #     azureSubscription: 'bicepserviceconnection'
