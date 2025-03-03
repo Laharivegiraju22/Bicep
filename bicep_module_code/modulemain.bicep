@@ -30,5 +30,14 @@ module cdn 'modules/cdn.bicep' = if (deployCdn) {
   }
 }
 
+module cosmosdb 'modules/db.bicep' {
+  name: 'cosmos'
+  params: {
+    cosmosDBAccountName: 'testbicep'
+    cosmosDBDatabaseThroughput: 400
+    location: 'eastus2'
+  }
+}
+
 @description('The host name to use to access the website.')
 output websiteHostName string = deployCdn ? cdn.outputs.endpointHostName : app.outputs.appServiceAppHostName
