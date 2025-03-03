@@ -3,25 +3,60 @@ trigger:
 
 name: Deploy Bicep files
 
-# parameters:
-#   azureServiceConnection: 'bicepserviceconnection'
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: 'bicepserviceconnection'
 
 variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'azmonitortest'
   location: 'eastus'
-  bicepParamFile: './moduleparam.bicepparam'
+  templateFile: './modulemain.bicep'
+  csmParametersFile: './moduleparam.bicepparam'
 
 pool:
   vmImage: $(vmImageName)
 
 steps:
-- task: AzureCLI@2
+- task: AzureResourceManagerTemplateDeployment@3
   inputs:
-    azureSubscription: 'bicepserviceconnection'
-    scriptType: bash
-    scriptLocation: inlineScript
-    useGlobalConfig: false
-    inlineScript: |
-      az --version
-      az deployment group create --resource-group azmonitortest --template-file modulemain.bicep --parameter moduleparam.bicepparam
+    deploymentScope: 'Resource Group'
+    azureSubscription: '${{ parameters.azureServiceConnection }}'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '$(resourceGroupName)'
+    location: '$(location)'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(templateFile)'
+    csmParametersFile: '$(csmParametersFile)'
+    overrideParameters: '-storageAccountType Standard_LRS'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
+
+# trigger:
+# - main
+
+# name: Deploy Bicep files
+
+# # parameters:
+# #   azureServiceConnection: 'bicepserviceconnection'
+
+# variables:
+#   vmImageName: 'ubuntu-latest'
+#   resourceGroupName: 'azmonitortest'
+#   location: 'eastus'
+#   bicepParamFile: './moduleparam.bicepparam'
+
+# pool:
+#   vmImage: $(vmImageName)
+
+# steps:
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'bicepserviceconnection'
+#     scriptType: bash
+#     scriptLocation: inlineScript
+#     useGlobalConfig: false
+#     inlineScript: |
+#       az --version
+#       az deployment group create --resource-group azmonitortest --template-file modulemain.bicep --parameter moduleparam.bicepparam
