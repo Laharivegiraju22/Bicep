@@ -16,19 +16,19 @@ pool:
   vmImage: $(vmImageName)
 
 steps:
-- script: |
-    ls -la
-    pwd
-    cd bicep_module_code 
-    ls -la
-    pwd
-  displayName: "Find Bicep parameter file"
-# - task: AzureCLI@2
-#   inputs:
-#     azureSubscription: 'bicepserviceconnection'
-#     scriptType: bash
-#     scriptLocation: inlineScript
-#     useGlobalConfig: false
-#     inlineScript: |
-#       az --version
-#       az deployment group create --resource-group azmonitortest --template-file modulemain.bicep --parameter moduleparam.bicepparam
+# - script: |
+#     ls -la
+#     pwd
+#     cd bicep_module_code 
+#     ls -la
+#     pwd
+#   displayName: "Find Bicep parameter file"
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'bicepserviceconnection'
+    scriptType: bash
+    scriptLocation: inlineScript
+    useGlobalConfig: false
+    inlineScript: |
+      az --version
+      az deployment group create --resource-group azmonitortest --template-file bicep_module_code/modulemain.bicep --parameter bicep_module_code/moduleparam.bicepparam
