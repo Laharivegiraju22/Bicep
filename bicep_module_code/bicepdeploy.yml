@@ -18,7 +18,7 @@ pool:
 steps:
 - task: AzureCLI@2
   inputs:
-    azureSubscription: '677e2958-8c03-4ec0-9cb2-a8f3d7a4b5ec'
+    azureSubscription: 'bicepserviceconnection'
     scriptType: bash
     scriptLocation: inlineScript
     useGlobalConfig: false
