@@ -9,7 +9,7 @@ name: Deploy Bicep files
 variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'azmonitortest'
-  location: 'East US'
+  location: 'eastus'
   bicepParamFile: './moduleparam.bicepparam'
 
 pool:
@@ -24,7 +24,6 @@ steps:
     useGlobalConfig: false
     inlineScript: |
       az --version
-      az group create --name $(resourceGroupName) --location $(location)
       az deployment group create `
         --resource-group $(resourceGroupName) `
         --parameters $(bicepParamFile) `
