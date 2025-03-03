@@ -16,10 +16,10 @@ pool:
   vmImage: $(vmImageName)
 
 steps:
-- task: ls
-  script: |
+- script: |
     ls -la
     pwd
+  displayName: "Find Bicep parameter file"
 # - task: AzureCLI@2
 #   inputs:
 #     azureSubscription: 'bicepserviceconnection'
