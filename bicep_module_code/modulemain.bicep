@@ -33,7 +33,7 @@ module cdn 'modules/cdn.bicep' = if (deployCdn) {
   }
 }
 
-module cosmosdb 'modules/db.bicep' {
+module cosmosdb 'modules/db.bicep' = {
   name: 'cosmos'
   params: {
     cosmosDBAccountName: cosmosDBAccountName
