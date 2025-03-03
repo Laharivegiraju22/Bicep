@@ -24,7 +24,4 @@ steps:
     useGlobalConfig: false
     inlineScript: |
       az --version
-      az deployment group create `
-        --resource-group $(resourceGroupName) `
-        --parameters $(bicepParamFile) `
-        --name DeployPipelineTemplate
+      az deployment group create --resource-group azmonitortest --template-file modulemain.bicep --parameter moduleparam.bicepparam
