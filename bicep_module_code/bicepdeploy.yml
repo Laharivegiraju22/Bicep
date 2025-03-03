@@ -4,13 +4,13 @@ trigger:
 name: Deploy Bicep files
 
 parameters:
-  azureServiceConnection: '<your-connection-name>'
+  azureServiceConnection: 'azure-svc'
 
 variables:
   vmImageName: 'ubuntu-latest'
-  resourceGroupName: 'exampleRG'
-  location: '<your-resource-group-location>'
-  bicepParamFile: './main.bicepparam'
+  resourceGroupName: 'azmonitortest'
+  location: 'East US'
+  bicepParamFile: './moduleparam.bicepparam'
 
 pool:
   vmImage: $(vmImageName)
