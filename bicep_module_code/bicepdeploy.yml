@@ -19,6 +19,9 @@ steps:
 - script: |
     ls -la
     pwd
+    cd bicep_module_code 
+    ls -la
+    pwd
   displayName: "Find Bicep parameter file"
 # - task: AzureCLI@2
 #   inputs:
