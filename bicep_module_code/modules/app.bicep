@@ -1,15 +1,14 @@
+@description('The Azure region into which the resources should be deployed.')
 param location string
+
+@description('The name of the App Service app.')
 param appServiceAppName string
 
-@allowed([
-  'nonprod'
-  'prod'
-])
-param environmentType string
+@description('The name of the App Service plan.')
+param appServicePlanName string
 
-
-var appServicePlanName = 'toy-product-launch-plan'
-var appServicePlanSkuName = (environmentType == 'prod') ? 'P2v3' : 'B1'
+@description('The name of the App Service plan SKU.')
+param appServicePlanSkuName string
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2024-04-01' = {
   name: appServicePlanName
@@ -28,4 +27,5 @@ resource appServiceApp 'Microsoft.Web/sites@2024-04-01' = {
   }
 }
 
+@description('The default host name of the App Service app.')
 output appServiceAppHostName string = appServiceApp.properties.defaultHostName

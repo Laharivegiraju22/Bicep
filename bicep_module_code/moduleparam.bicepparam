@@ -1,5 +1,5 @@
 using './modulemain.bicep'
 
-param appServiceAppName = 'bicepmoduleapp'
-param environmentType = 'nonprod'
-param storageAccountName = 'bicepmodule22'
+param location = 'eastus2'
+param appServiceAppName = 'test-toy-app-module'
+param deployCdn = true
