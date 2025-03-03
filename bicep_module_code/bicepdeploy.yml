@@ -3,8 +3,8 @@ trigger:
 
 name: Deploy Bicep files
 
-parameters:
-  azureServiceConnection: 'bicepserviceconnection'
+# parameters:
+#   azureServiceConnection: 'bicepserviceconnection'
 
 variables:
   vmImageName: 'ubuntu-latest'
@@ -18,7 +18,7 @@ pool:
 steps:
 - task: AzureCLI@2
   inputs:
-    azureSubscription: '${{ parameters.azureServiceConnection }}'
+    azureSubscription: '677e2958-8c03-4ec0-9cb2-a8f3d7a4b5ec'
     scriptType: bash
     scriptLocation: inlineScript
     useGlobalConfig: false
